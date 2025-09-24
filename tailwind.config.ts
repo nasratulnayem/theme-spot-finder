@@ -57,6 +57,15 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // GPLMama custom colors
+        gpl: {
+          dark: "hsl(var(--gpl-dark))",
+          darker: "hsl(var(--gpl-darker))",
+          green: "hsl(var(--gpl-green))",
+          "green-hover": "hsl(var(--gpl-green-hover))",
+          card: "hsl(var(--gpl-card))",
+          border: "hsl(var(--gpl-border))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
