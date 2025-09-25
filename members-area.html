@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse All 3000+ WordPress Assets | Members Area</title>
+    <meta name="description" content="Access premium WordPress themes, plugins, WooCommerce extensions, Shopify themes, and web design templates. Download 3000+ digital assets instantly.">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --background: hsl(210, 6%, 10%);
+            --foreground: hsl(0, 0%, 95%);
+            --card: hsl(215, 8%, 12%);
+            --card-foreground: hsl(0, 0%, 95%);
+            --primary: hsl(145, 100%, 50%);
+            --primary-foreground: hsl(210, 6%, 10%);
+            --secondary: hsl(215, 8%, 16%);
+            --secondary-foreground: hsl(0, 0%, 95%);
+            --muted: hsl(215, 8%, 16%);
+            --muted-foreground: hsl(0, 0%, 65%);
+            --border: hsl(145, 100%, 50%);
+            --input: hsl(215, 8%, 16%);
+            --ring: hsl(145, 100%, 50%);
+            --radius: 0.5rem;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--foreground);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-top: 2rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--foreground);
+        }
+
+        .header p {
+            color: var(--muted-foreground);
+            font-size: 0.875rem;
+            max-width: 32rem;
+            margin: 0 auto;
+        }
+
+        .search-filter {
+            max-width: 56rem;
+            margin: 0 auto 2rem;
+            padding: 0 1rem;
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 2.5rem 0.75rem 2.5rem;
+            background-color: var(--input);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--foreground);
+            font-size: 0.875rem;
+            height: 3rem;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px var(--ring);
+        }
+
+        .search-input::placeholder {
+            color: var(--muted-foreground);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1rem;
+            height: 1rem;
+            color: var(--muted-foreground);
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--muted-foreground);
+            cursor: pointer;
+            padding: 0.25rem;
+            border-radius: 0.25rem;
+            display: none;
+        }
+
+        .clear-btn:hover {
+            color: var(--foreground);
+        }
+
+        .categories-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .categories-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .categories-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--foreground);
+        }
+
+        .clear-all-btn {
+            background: none;
+            border: none;
+            color: var(--muted-foreground);
+            cursor: pointer;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            display: none;
+        }
+
+        .clear-all-btn:hover {
+            color: var(--foreground);
+        }
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .category-badge {
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid var(--border);
+        }
+
+        .category-badge.active {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+        }
+
+        .category-badge.inactive {
+            background-color: var(--secondary);
+            color: var(--secondary-foreground);
+            border-color: var(--border);
+        }
+
+        .category-badge:hover {
+            opacity: 0.8;
+        }
+
+        .results-count {
+            margin-bottom: 1.5rem;
+            padding: 0 1rem;
+            color: var(--muted-foreground);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            padding: 0 1rem;
+        }
+
+        .product-card {
+            background-color: var(--card);
+            border: 2px solid rgba(0, 255, 140, 0.3);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 10px 25px -5px rgba(0, 255, 140, 0.1);
+        }
+
+        .product-card-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .product-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .product-category {
+            background-color: rgba(0, 255, 140, 0.1);
+            color: var(--primary);
+            border: 1px solid rgba(0, 255, 140, 0.3);
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+            display: inline-block;
+        }
+
+        .product-name {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--foreground);
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+            transition: color 0.2s ease;
+        }
+
+        .product-card:hover .product-name {
+            color: var(--primary);
+        }
+
+        .product-date {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+        }
+
+        .download-btn {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background-color 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .download-btn:hover {
+            background-color: rgba(0, 255, 140, 0.9);
+        }
+
+        .download-icon {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .product-glow {
+            position: absolute;
+            inset: 0;
+            background-color: rgba(0, 255, 140, 0.05);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .product-card:hover .product-glow {
+            opacity: 1;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+
+        .no-results h3 {
+            font-size: 1.125rem;
+            color: var(--muted-foreground);
+            margin-bottom: 1rem;
+        }
+
+        .no-results p {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+        }
+
+        @media (min-width: 640px) {
+            .header h1 {
+                font-size: 3rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .header h1 {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Browse All 3000+ WordPress Assets</h1>
+            <p>wordpress themes, wordpress plugins, woocommerce plugins, templates, landing page, shopify theme</p>
+        </div>
+
+        <!-- Search and Filter -->
+        <div class="search-filter">
+            <!-- Search Box -->
+            <div class="search-box">
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    class="search-input" 
+                    placeholder="Search for WordPress themes, plugins, templates..."
+                >
+                <button class="clear-btn" id="clearSearch">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 1rem; height: 1rem;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Categories -->
+            <div class="categories-section">
+                <div class="categories-header">
+                    <h3 class="categories-title">Categories</h3>
+                    <button class="clear-all-btn" id="clearAll">Clear all</button>
+                </div>
+                
+                <div class="categories" id="categories">
+                    <!-- Categories will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Count -->
+        <div class="results-count" id="resultsCount"></div>
+
+        <!-- Products Grid -->
+        <div class="products-grid" id="productsGrid">
+            <!-- Products will be populated by JavaScript -->
+        </div>
+
+        <!-- No Results -->
+        <div class="no-results" id="noResults" style="display: none;">
+            <h3>No products found matching your criteria</h3>
+            <p>Try adjusting your search terms or category filter</p>
+        </div>
+    </div>
+
+    <script>
+        // Demo data
+        const demoProducts = [
+            {
+                id: "1",
+                name: "RT-Theme 13 Multipurpose WordPress Theme",
+                category: "WordPress Themes",
+                downloadLink: "#",
+                date: "09 Sep, 2025"
+            },
+            {
+                id: "2",
+                name: "GoodzShop WordPress Theme",
+                category: "WordPress Themes",
+                downloadLink: "#",
+                date: "09 Sep, 2025"
+            },
+            {
+                id: "3",
+                name: "Sleek Blog WordPress Theme",
+                category: "WordPress Themes",
+                downloadLink: "#",
+                date: "09 Sep, 2025"
+            },
+            {
+                id: "4",
+                name: "Life Coach WordPress Theme Coaching Template",
+                category: "WordPress Themes",
+                downloadLink: "#",
+                date: "09 Sep, 2025"
+            },
+            {
+                id: "5",
+                name: "Themify Minshop WooCommerce Themes",
+                category: "Woocommerce Plugin",
+                downloadLink: "#",
+                date: "09 Sep, 2025"
+            },
+            {
+                id: "6",
+                name: "Advanced Custom Fields Pro",
+                category: "WordPress Plugins",
+                downloadLink: "#",
+                date: "08 Sep, 2025"
+            },
+            {
+                id: "7",
+                name: "Elementor Pro Page Builder",
+                category: "WordPress Plugins",
+                downloadLink: "#",
+                date: "08 Sep, 2025"
+            },
+            {
+                id: "8",
+                name: "Minimal Shopify Theme",
+                category: "Shopify Themes",
+                downloadLink: "#",
+                date: "07 Sep, 2025"
+            },
+            {
+                id: "9",
+                name: "Creative Landing Page Template",
+                category: "Web design",
+                downloadLink: "#",
+                date: "07 Sep, 2025"
+            }
+        ];
+
+        const categories = [
+            { name: "Shopify Themes", count: 201 },
+            { name: "Web design", count: 450 },
+            { name: "Woocommerce Plugin", count: 230 },
+            { name: "WordPress Plugins", count: 890 },
+            { name: "WordPress Themes", count: 1200 }
+        ];
+
+        let searchTerm = "";
+        let selectedCategory = "";
+        let filteredProducts = [...demoProducts];
+
+        // DOM elements
+        const searchInput = document.getElementById('searchInput');
+        const clearSearchBtn = document.getElementById('clearSearch');
+        const clearAllBtn = document.getElementById('clearAll');
+        const categoriesContainer = document.getElementById('categories');
+        const resultsCount = document.getElementById('resultsCount');
+        const productsGrid = document.getElementById('productsGrid');
+        const noResults = document.getElementById('noResults');
+
+        // Initialize
+        function init() {
+            renderCategories();
+            renderProducts();
+            updateResultsCount();
+            
+            // Event listeners
+            searchInput.addEventListener('input', handleSearch);
+            clearSearchBtn.addEventListener('click', clearSearch);
+            clearAllBtn.addEventListener('click', clearAllFilters);
+        }
+
+        function handleSearch(e) {
+            searchTerm = e.target.value;
+            filterProducts();
+            updateClearButton();
+            updateClearAllButton();
+        }
+
+        function clearSearch() {
+            searchTerm = "";
+            searchInput.value = "";
+            filterProducts();
+            updateClearButton();
+            updateClearAllButton();
+        }
+
+        function clearAllFilters() {
+            searchTerm = "";
+            selectedCategory = "";
+            searchInput.value = "";
+            filterProducts();
+            renderCategories();
+            updateClearButton();
+            updateClearAllButton();
+        }
+
+        function handleCategoryClick(categoryName) {
+            selectedCategory = selectedCategory === categoryName ? "" : categoryName;
+            filterProducts();
+            renderCategories();
+            updateClearAllButton();
+        }
+
+        function filterProducts() {
+            filteredProducts = demoProducts.filter(product => {
+                const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+                const matchesCategory = selectedCategory === '' || product.category === selectedCategory;
+                return matchesSearch && matchesCategory;
+            });
+            
+            renderProducts();
+            updateResultsCount();
+        }
+
+        function updateClearButton() {
+            clearSearchBtn.style.display = searchTerm ? 'block' : 'none';
+        }
+
+        function updateClearAllButton() {
+            clearAllBtn.style.display = (selectedCategory || searchTerm) ? 'block' : 'none';
+        }
+
+        function renderCategories() {
+            const allCategoryHtml = `
+                <div class="category-badge ${selectedCategory === '' ? 'active' : 'inactive'}" onclick="handleCategoryClick('')">
+                    All Categories
+                </div>
+            `;
+            
+            const categoriesHtml = categories.map(category => `
+                <div class="category-badge ${selectedCategory === category.name ? 'active' : 'inactive'}" onclick="handleCategoryClick('${category.name}')">
+                    ${category.name} (${category.count})
+                </div>
+            `).join('');
+            
+            categoriesContainer.innerHTML = allCategoryHtml + categoriesHtml;
+        }
+
+        function renderProducts() {
+            if (filteredProducts.length === 0) {
+                productsGrid.style.display = 'none';
+                noResults.style.display = 'block';
+                return;
+            }
+            
+            productsGrid.style.display = 'grid';
+            noResults.style.display = 'none';
+            
+            const productsHtml = filteredProducts.map(product => `
+                <div class="product-card">
+                    <div class="product-card-content">
+                        <div class="product-info">
+                            <div class="product-category">${product.category.toUpperCase()}</div>
+                            <h3 class="product-name">${product.name}</h3>
+                            ${product.date ? `<p class="product-date">${product.date}</p>` : ''}
+                        </div>
+                        
+                        <button class="download-btn" onclick="handleDownload('${product.downloadLink}')">
+                            <svg class="download-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            Download
+                        </button>
+                    </div>
+                    <div class="product-glow"></div>
+                </div>
+            `).join('');
+            
+            productsGrid.innerHTML = productsHtml;
+        }
+
+        function updateResultsCount() {
+            let countText = `Showing ${filteredProducts.length} of ${demoProducts.length} products`;
+            
+            if (selectedCategory) {
+                countText += ` in ${selectedCategory}`;
+            }
+            
+            if (searchTerm) {
+                countText += ` matching "${searchTerm}"`;
+            }
+            
+            resultsCount.textContent = countText;
+        }
+
+        function handleDownload(link) {
+            window.open(link, '_blank');
+        }
+
+        // Make functions global for onclick handlers
+        window.handleCategoryClick = handleCategoryClick;
+        window.handleDownload = handleDownload;
+
+        // Initialize the app
+        init();
+    </script>
+</body>
+</html>
