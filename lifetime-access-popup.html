@@ -22,28 +22,30 @@
             padding: 20px;
         }
 
-        /* Demo button */
-        .demo-btn {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1000;
-            background: linear-gradient(135deg, #00ff88, #00cc6a);
-            color: #000;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            font-size: 12px;
-            letter-spacing: 1px;
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
         }
 
-        .demo-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.3);
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #00ff88, #00cc6a);
+            border-radius: 6px;
+            border: 2px solid #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #00cc6a, #00aa55);
+        }
+
+        /* Firefox Scrollbar */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #00ff88 #1a1a1a;
         }
 
         /* Popup Overlay */
@@ -347,9 +349,7 @@
     </style>
 </head>
 <body>
-    <button class="demo-btn" onclick="showPopup()">Show Lifetime Access Offer</button>
-
-    <div class="popup-overlay" id="popupOverlay">
+    <div class="popup-overlay active" id="popupOverlay">
         <div class="popup-container">
             <button class="popup-close" onclick="closePopup()">×</button>
             
@@ -414,11 +414,6 @@
         </div>
     </div>
 
-    <div style="text-align: center;">
-        <h1 style="font-size: 48px; margin-bottom: 20px; background: linear-gradient(135deg, #00ff88, #ffffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">GPLMama Lifetime Access</h1>
-        <p style="color: #aaa; font-size: 18px;">Click the button above to see your promotional popup</p>
-    </div>
-
     <script>
         const popupOverlay = document.getElementById('popupOverlay');
 
@@ -446,8 +441,10 @@
             }
         });
 
-        // Auto-show popup after 3 seconds (optional)
-        // setTimeout(showPopup, 3000);
+        // Auto-show popup on page load
+        window.addEventListener('load', () => {
+            showPopup();
+        });
     </script>
 </body>
 </html>
