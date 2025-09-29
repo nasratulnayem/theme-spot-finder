@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Changelogs - GPLMama</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --bg-card: #141414;
+            --border-primary: #00ff88;
+            --border-secondary: #333;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --text-muted: #666;
+            --accent-green: #00ff88;
+            --accent-green-glow: rgba(0, 255, 136, 0.2);
+            --shadow-glow: 0 0 20px rgba(0, 255, 136, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .background-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(0, 255, 136, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(0, 255, 136, 0.06) 0%, transparent 50%);
+        }
+
+        .grid-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Floating Elements */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-icon {
+            position: absolute;
+            color: var(--accent-green);
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-icon:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .floating-icon:nth-child(2) { top: 20%; right: 10%; animation-delay: 1s; }
+        .floating-icon:nth-child(3) { bottom: 30%; left: 15%; animation-delay: 2s; }
+        .floating-icon:nth-child(4) { bottom: 20%; right: 20%; animation-delay: 3s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Filters */
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .filter-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-secondary);
+            color: var(--text-secondary);
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--accent-green-glow);
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+            box-shadow: var(--shadow-glow);
+        }
+
+        /* Changelogs Grid */
+        .changelogs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        /* Changelog Card */
+        .changelog-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-secondary);
+            border-radius: 15px;
+            padding: 25px;
+            position: relative;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .changelog-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-green), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .changelog-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-green);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .changelog-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Card Header */
+        .card-header {
+            display: flex;
+            justify-content: between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .product-category {
+            background: var(--accent-green-glow);
+            color: var(--accent-green);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .version-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .version {
+            background: var(--bg-secondary);
+            color: var(--accent-green);
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .update-date {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Changelog Content */
+        .changelog-content {
+            margin-bottom: 20px;
+        }
+
+        .changelog-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .changelog-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .changelog-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .changelog-list li {
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .changelog-list li::before {
+            content: '▸';
+            color: var(--accent-green);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* Download Button */
+        .download-btn {
+            background: linear-gradient(135deg, var(--accent-green), #00cc6a);
+            color: var(--bg-primary);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.3);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .changelogs-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filters {
+                gap: 10px;
+            }
+            
+            .filter-btn {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border-secondary);
+            border-top: 3px solid var(--accent-green);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+
+        .no-results h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="background-effects">
+        <div class="grid-pattern"></div>
+    </div>
+
+    <!-- Floating Elements -->
+    <div class="floating-elements">
+        <div class="floating-icon">📦</div>
+        <div class="floating-icon">🔄</div>
+        <div class="floating-icon">⚡</div>
+        <div class="floating-icon">🚀</div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📋 Member Changelogs</h1>
+            <p>Stay updated with the latest changes, improvements, and new features across all our products. Download the latest versions instantly.</p>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters">
+            <button class="filter-btn active" data-category="all">All Products</button>
+            <button class="filter-btn" data-category="plugins">Plugins</button>
+            <button class="filter-btn" data-category="themes">Themes</button>
+            <button class="filter-btn" data-category="tools">Tools</button>
+        </div>
+
+        <!-- Changelogs Grid -->
+        <div class="changelogs-grid" id="changelogsGrid">
+            <!-- Products will be loaded here -->
+        </div>
+
+        <!-- No Results -->
+        <div class="no-results" id="noResults" style="display: none;">
+            <h3>No Updates Found</h3>
+            <p>No changelogs match the selected category.</p>
+        </div>
+    </div>
+
+    <script>
+        // Sample changelog data
+        const changelogData = [
+            {
+                id: 1,
+                name: "WooCommerce Advanced Reports",
+                category: "plugins",
+                version: "v3.2.1",
+                date: "2024-01-15",
+                title: "Enhanced Analytics & Bug Fixes",
+                description: "Major update with improved reporting capabilities and performance optimizations.",
+                changes: [
+                    "Added real-time sales tracking",
+                    "Fixed export functionality",
+                    "Improved dashboard loading speed",
+                    "Added new chart types"
+                ],
+                downloadLink: "https://example.com/download/woocommerce-reports"
+            },
+            {
+                id: 2,
+                name: "Elementor Pro Templates",
+                category: "themes",
+                version: "v2.8.0",
+                date: "2024-01-12",
+                title: "New Templates & Mobile Optimization",
+                description: "Fresh collection of professional templates with enhanced mobile responsiveness.",
+                changes: [
+                    "25 new page templates",
+                    "Mobile-first design approach",
+                    "Faster loading times",
+                    "Better SEO optimization"
+                ],
+                downloadLink: "https://example.com/download/elementor-templates"
+            },
+            {
+                id: 3,
+                name: "WordPress Security Scanner",
+                category: "plugins",
+                version: "v1.9.5",
+                date: "2024-01-10",
+                title: "Security Enhancements",
+                description: "Critical security updates and new malware detection features.",
+                changes: [
+                    "Enhanced malware detection",
+                    "New firewall rules",
+                    "Automated security scans",
+                    "Improved admin notifications"
+                ],
+                downloadLink: "https://example.com/download/security-scanner"
+            },
+            {
+                id: 4,
+                name: "Premium Theme Bundle",
+                category: "themes",
+                version: "v4.1.2",
+                date: "2024-01-08",
+                title: "New Themes & Customization Options",
+                description: "Expanded theme collection with advanced customization capabilities.",
+                changes: [
+                    "10 new premium themes",
+                    "Advanced color options",
+                    "Custom typography settings",
+                    "One-click demo import"
+                ],
+                downloadLink: "https://example.com/download/theme-bundle"
+            },
+            {
+                id: 5,
+                name: "Database Optimization Tool",
+                category: "tools",
+                version: "v2.3.0",
+                date: "2024-01-05",
+                title: "Performance Improvements",
+                description: "Faster database optimization with new cleaning algorithms.",
+                changes: [
+                    "50% faster optimization",
+                    "New cleaning algorithms",
+                    "Scheduled cleanups",
+                    "Better progress tracking"
+                ],
+                downloadLink: "https://example.com/download/db-optimizer"
+            },
+            {
+                id: 6,
+                name: "Contact Form Builder",
+                category: "plugins",
+                version: "v3.0.1",
+                date: "2024-01-03",
+                title: "Major UI Overhaul",
+                description: "Complete redesign with drag-drop functionality and new field types.",
+                changes: [
+                    "Drag & drop form builder",
+                    "15 new field types",
+                    "Conditional logic",
+                    "Spam protection updates"
+                ],
+                downloadLink: "https://example.com/download/contact-form"
+            }
+        ];
+
+        let currentFilter = 'all';
+        let filteredData = [...changelogData];
+
+        // DOM elements
+        const changelogsGrid = document.getElementById('changelogsGrid');
+        const noResults = document.getElementById('noResults');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+
+        // Initialize the page
+        function init() {
+            renderChangelogs();
+            setupEventListeners();
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const category = e.target.dataset.category;
+                    setActiveFilter(category);
+                    filterChangelogs(category);
+                });
+            });
+        }
+
+        // Set active filter button
+        function setActiveFilter(category) {
+            filterBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.category === category) {
+                    btn.classList.add('active');
+                }
+            });
+            currentFilter = category;
+        }
+
+        // Filter changelogs by category
+        function filterChangelogs(category) {
+            if (category === 'all') {
+                filteredData = [...changelogData];
+            } else {
+                filteredData = changelogData.filter(item => item.category === category);
+            }
+            renderChangelogs();
+        }
+
+        // Render changelogs
+        function renderChangelogs() {
+            if (filteredData.length === 0) {
+                changelogsGrid.style.display = 'none';
+                noResults.style.display = 'block';
+                return;
+            }
+
+            changelogsGrid.style.display = 'grid';
+            noResults.style.display = 'none';
+
+            changelogsGrid.innerHTML = filteredData.map(item => `
+                <div class="changelog-card">
+                    <div class="card-header">
+                        <div class="product-info">
+                            <div class="product-category">${item.category.toUpperCase()}</div>
+                            <h3 class="product-name">${item.name}</h3>
+                            <div class="version-info">
+                                <span class="version">${item.version}</span>
+                                <span class="update-date">${formatDate(item.date)}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="changelog-content">
+                        <h4 class="changelog-title">${item.title}</h4>
+                        <p class="changelog-description">${item.description}</p>
+                        <ul class="changelog-list">
+                            ${item.changes.map(change => `<li>${change}</li>`).join('')}
+                        </ul>
+                    </div>
+                    
+                    <button class="download-btn" onclick="handleDownload('${item.downloadLink}', '${item.name}')">
+                        <span>📥</span>
+                        Download ${item.version}
+                    </button>
+                </div>
+            `).join('');
+
+            // Add animation delay to cards
+            const cards = changelogsGrid.querySelectorAll('.changelog-card');
+            cards.forEach((card, index) => {
+                card.style.animation = `fadeInUp 0.6s ease-out ${index * 0.1}s both`;
+            });
+        }
+
+        // Format date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        // Handle download
+        function handleDownload(link, productName) {
+            // Show download feedback
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = '<span>⏳</span> Preparing Download...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                // Simulate download start
+                window.open(link, '_blank');
+                
+                btn.innerHTML = '<span>✅</span> Download Started!';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }, 2000);
+            }, 1000);
+            
+            console.log(`Downloading: ${productName} from ${link}`);
+        }
+
+        // Parallax effect for background
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            
+            document.querySelector('.grid-pattern').style.transform = 
+                `translate(${moveX}px, ${moveY}px)`;
+        });
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+
+        // Expose functions globally for onclick handlers
+        window.handleDownload = handleDownload;
+    </script>
+</body>
+</html>
