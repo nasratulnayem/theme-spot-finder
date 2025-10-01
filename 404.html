@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | GPLMama</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #111111 50%, #0a0a0a 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated Background Effects */
+        .bg-effect {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .bg-effect-1 {
+            top: 80px;
+            left: 80px;
+            width: 384px;
+            height: 384px;
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .bg-effect-2 {
+            bottom: 80px;
+            right: 80px;
+            width: 384px;
+            height: 384px;
+            background: rgba(0, 255, 136, 0.1);
+            animation-delay: 1s;
+        }
+
+        /* Grid Background */
+        .grid-bg {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        /* Floating Icons */
+        .floating-icon {
+            position: absolute;
+            animation: float 3s ease-in-out infinite;
+            opacity: 0.2;
+        }
+
+        .floating-icon-1 {
+            top: 40px;
+            left: 40px;
+            animation-delay: 0s;
+            animation-duration: 3s;
+        }
+
+        .floating-icon-2 {
+            bottom: 40px;
+            right: 40px;
+            animation-delay: 1s;
+            animation-duration: 4s;
+        }
+
+        .floating-icon svg {
+            fill: #00ff88;
+        }
+
+        /* Main Content */
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 24px;
+            max-width: 800px;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .error-code {
+            font-size: 144px;
+            font-weight: bold;
+            background: linear-gradient(to right, #00ff88, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: pulse 2s ease-in-out infinite;
+            margin-bottom: 32px;
+            line-height: 1;
+        }
+
+        .divider {
+            height: 4px;
+            width: 128px;
+            background: linear-gradient(to right, transparent, #00ff88, transparent);
+            margin: 0 auto 24px;
+        }
+
+        .title {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 16px;
+            animation: fadeIn 0.6s ease-out 0.2s backwards;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #9ca3af;
+            margin-bottom: 24px;
+            animation: fadeIn 0.6s ease-out 0.4s backwards;
+        }
+
+        .redirect-box {
+            background: rgba(17, 24, 39, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+            animation: fadeIn 0.6s ease-out 0.6s backwards;
+        }
+
+        .countdown-text {
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .countdown-number {
+            color: #00ff88;
+            font-weight: bold;
+            font-size: 32px;
+            display: inline-block;
+            min-width: 40px;
+        }
+
+        .redirect-subtext {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.6s ease-out 0.8s backwards;
+            margin-bottom: 32px;
+        }
+
+        @media (min-width: 640px) {
+            .button-group {
+                flex-direction: row;
+            }
+        }
+
+        .btn {
+            padding: 12px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            min-width: 180px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #00ff88, #00d4ff);
+            color: #000000;
+            box-shadow: 0 0 0 rgba(0, 255, 136, 0.5);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+            transform: scale(1.05);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #00ff88;
+            color: #00ff88;
+        }
+
+        .btn-secondary:hover {
+            background: #00ff88;
+            color: #000000;
+            transform: scale(1.05);
+        }
+
+        .footer-text {
+            color: #6b7280;
+            font-size: 14px;
+            animation: fadeIn 0.6s ease-out 1s backwards;
+        }
+
+        .footer-text a {
+            color: #00ff88;
+            text-decoration: underline;
+            transition: color 0.3s ease;
+        }
+
+        .footer-text a:hover {
+            color: #00d4ff;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 96px;
+            }
+
+            .title {
+                font-size: 28px;
+            }
+
+            .bg-effect-1, .bg-effect-2 {
+                width: 256px;
+                height: 256px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background Effects -->
+    <div class="bg-effect bg-effect-1"></div>
+    <div class="bg-effect bg-effect-2"></div>
+    <div class="grid-bg"></div>
+
+    <!-- Floating Icons -->
+    <div class="floating-icon floating-icon-1">
+        <svg width="48" height="48" viewBox="0 0 20 20">
+            <path d="M10 2a8 8 0 100 16 8 8 0 000-16zM9 9a1 1 0 012 0v4a1 1 0 11-2 0V9zm1-5a1 1 0 100 2 1 1 0 000-2z"/>
+        </svg>
+    </div>
+    <div class="floating-icon floating-icon-2">
+        <svg width="64" height="64" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+        </svg>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div>
+            <h1 class="error-code">404</h1>
+            <div class="divider"></div>
+        </div>
+
+        <h2 class="title">Oops! Page Not Found</h2>
+        
+        <p class="subtitle">
+            The page you're looking for doesn't exist or has been moved.
+        </p>
+
+        <div class="redirect-box">
+            <p class="countdown-text">
+                Redirecting you to home in <span class="countdown-number" id="countdown">3</span> seconds...
+            </p>
+            <p class="redirect-subtext">
+                Please wait while we take you back to safety
+            </p>
+        </div>
+
+        <div class="button-group">
+            <a href="https://gplmama.com" class="btn btn-primary">
+                Go Home Now
+            </a>
+            
+            <a href="https://gplmama.com/request-a-quote/" class="btn btn-secondary">
+                Request a Quote
+            </a>
+        </div>
+
+        <p class="footer-text">
+            Have a question? Feel free to 
+            <a href="https://gplmama.com/request-a-quote/">submit it here</a>
+        </p>
+    </div>
+
+    <script>
+        // Countdown and redirect functionality
+        let timeLeft = 3;
+        const countdownElement = document.getElementById('countdown');
+        
+        const countdownInterval = setInterval(() => {
+            timeLeft--;
+            countdownElement.textContent = timeLeft;
+            
+            if (timeLeft <= 0) {
+                clearInterval(countdownInterval);
+                window.location.href = 'https://gplmama.com';
+            }
+        }, 1000);
+
+        // Log 404 error
+        console.error('404 Error: User attempted to access non-existent page:', window.location.href);
+    </script>
+</body>
+</html>
