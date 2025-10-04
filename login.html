@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - WordPress Assets Collection</title>
-    <meta name="description" content="Login to access your premium WordPress themes, plugins, WooCommerce extensions, and Shopify themes collection.">
+    <title>Sign In / Sign Up</title>
     <style>
         * {
             margin: 0;
@@ -14,9 +13,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: hsl(210, 6%, 10%);
-            color: hsl(0, 0%, 95%);
-            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -24,135 +21,112 @@
             padding: 20px;
         }
 
-        .login-container {
-            background: hsl(215, 8%, 12%);
-            border: 1px solid hsl(145, 100%, 50%);
-            border-radius: 16px;
-            padding: 3rem;
+        .container {
             width: 100%;
-            max-width: 450px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 20px 40px hsl(145, 100%, 50%, 0.1);
+            max-width: 440px;
         }
 
-        .login-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(135deg, hsl(145, 100%, 50%), hsl(145, 100%, 70%));
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
         }
 
-        .logo {
-            text-align: center;
-            margin-bottom: 2rem;
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            background: rgba(102, 126, 234, 0.1);
+            padding: 5px;
+            border-radius: 12px;
         }
 
-        .logo h1 {
-            font-size: 2rem;
-            background: linear-gradient(135deg, hsl(145, 100%, 50%), hsl(145, 100%, 70%));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
+        .tab {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: transparent;
+            color: #667eea;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s;
         }
 
-        .logo p {
-            color: hsl(0, 0%, 65%);
-            font-size: 0.9rem;
+        .tab.active {
+            background: white;
+            color: #667eea;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+        }
+
+        .form-container {
+            display: none;
+        }
+
+        .form-container.active {
+            display: block;
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 20px;
         }
 
-        .form-label {
+        label {
             display: block;
-            margin-bottom: 0.5rem;
-            color: hsl(0, 0%, 95%);
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 14px;
             font-weight: 500;
         }
 
-        .form-input {
+        input {
             width: 100%;
-            padding: 0.875rem 1rem;
-            background: hsl(215, 8%, 16%);
-            border: 1px solid hsl(215, 8%, 25%);
-            border-radius: 8px;
-            color: hsl(0, 0%, 95%);
-            font-size: 1rem;
-            transition: all 0.3s ease;
+            padding: 14px 16px;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            border-radius: 10px;
+            font-size: 15px;
+            background: white;
+            color: #333;
+            transition: all 0.3s;
         }
 
-        .form-input:focus {
+        input:focus {
             outline: none;
-            border-color: hsl(145, 100%, 50%);
-            box-shadow: 0 0 0 3px hsl(145, 100%, 50%, 0.2);
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
         }
 
-        .form-input::placeholder {
-            color: hsl(0, 0%, 65%);
-        }
-
-        .password-container {
-            position: relative;
-        }
-
-        .password-toggle {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: hsl(0, 0%, 65%);
-            cursor: pointer;
-            padding: 4px;
-            font-size: 0.9rem;
-        }
-
-        .password-toggle:hover {
-            color: hsl(145, 100%, 50%);
-        }
-
-        .login-button {
+        .btn {
             width: 100%;
-            background: linear-gradient(135deg, hsl(145, 100%, 50%), hsl(145, 100%, 55%));
-            color: hsl(210, 6%, 10%);
+            padding: 14px;
             border: none;
-            padding: 1rem;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 8px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 1rem;
+            transition: all 0.3s;
         }
 
-        .login-button:hover {
-            background: linear-gradient(135deg, hsl(145, 100%, 55%), hsl(145, 100%, 60%));
-            transform: translateY(-2px);
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin-top: 10px;
         }
 
-        .login-button:active {
-            transform: translateY(0);
-        }
-
-        .login-button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
         }
 
         .divider {
             display: flex;
             align-items: center;
-            margin: 1.5rem 0;
-            color: hsl(0, 0%, 65%);
-            font-size: 0.9rem;
+            margin: 25px 0;
+            color: #999;
+            font-size: 13px;
         }
 
         .divider::before,
@@ -160,374 +134,289 @@
             content: '';
             flex: 1;
             height: 1px;
-            background: hsl(215, 8%, 25%);
+            background: rgba(102, 126, 234, 0.2);
         }
 
         .divider span {
-            padding: 0 1rem;
+            padding: 0 15px;
         }
 
-        .social-login {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
+        .social-buttons {
+            display: grid;
+            gap: 12px;
         }
 
-        .social-button {
-            flex: 1;
-            padding: 0.75rem;
-            background: hsl(215, 8%, 16%);
-            border: 1px solid hsl(215, 8%, 25%);
-            border-radius: 8px;
-            color: hsl(0, 0%, 95%);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
+        .btn-social {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
+            gap: 10px;
+            padding: 12px;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            border-radius: 10px;
+            background: white;
+            color: #333;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
-        .social-button:hover {
-            background: hsl(215, 8%, 20%);
-            border-color: hsl(145, 100%, 50%);
+        .btn-social:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
         }
 
-        .links {
-            text-align: center;
-            margin-top: 1.5rem;
-        }
-
-        .links a {
-            color: hsl(145, 100%, 50%);
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-
-        .links a:hover {
-            text-decoration: underline;
-        }
-
-        .links span {
-            color: hsl(0, 0%, 65%);
-            margin: 0 0.5rem;
-        }
-
-        .back-link {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            color: hsl(145, 100%, 50%);
-            text-decoration: none;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .back-link:hover {
-            text-decoration: underline;
-        }
-
-        .features-preview {
-            background: hsl(215, 8%, 16%);
-            border-radius: 8px;
-            padding: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .features-preview h3 {
-            color: hsl(145, 100%, 50%);
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .features-list {
-            list-style: none;
-            font-size: 0.85rem;
-            color: hsl(0, 0%, 75%);
-        }
-
-        .features-list li {
-            padding: 0.25rem 0;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .features-list li::before {
-            content: '✓';
-            color: hsl(145, 100%, 50%);
-            font-weight: bold;
-            width: 12px;
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 480px) {
-            .login-container {
-                padding: 2rem 1.5rem;
-                margin: 10px;
-            }
-
-            .logo h1 {
-                font-size: 1.5rem;
-            }
-
-            .social-login {
-                flex-direction: column;
-            }
-
-            .back-link {
-                position: static;
-                margin-bottom: 1rem;
-                justify-content: center;
-            }
-        }
-
-        /* Loading animation */
-        .loading {
-            display: inline-block;
+        .btn-social img {
             width: 20px;
             height: 20px;
-            border: 2px solid hsl(210, 6%, 10%, 0.3);
-            border-radius: 50%;
-            border-top-color: hsl(210, 6%, 10%);
-            animation: spin 1s ease-in-out infinite;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .error-message {
-            background: hsl(0, 84%, 60%, 0.1);
-            border: 1px solid hsl(0, 84%, 60%);
-            color: hsl(0, 84%, 70%);
-            padding: 0.75rem;
+        .message {
+            padding: 12px;
             border-radius: 8px;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
+            margin-bottom: 20px;
+            font-size: 14px;
             display: none;
         }
 
-        .success-message {
-            background: hsl(145, 100%, 50%, 0.1);
-            border: 1px solid hsl(145, 100%, 50%);
-            color: hsl(145, 100%, 70%);
-            padding: 0.75rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            display: none;
+        .message.error {
+            background: #fee;
+            color: #c33;
+            border: 1px solid #fcc;
+        }
+
+        .message.success {
+            background: #efe;
+            color: #3c3;
+            border: 1px solid #cfc;
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-top: -10px;
+            margin-bottom: 20px;
+        }
+
+        .forgot-password a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
-    <a href="pricing.html" class="back-link">← Back to Pricing</a>
-    
-    <div class="login-container">
-        <div class="logo">
-            <h1>GPLMama</h1>
-            <p>Access Premium WordPress Assets</p>
-        </div>
-
-        <div class="error-message" id="errorMessage"></div>
-        <div class="success-message" id="successMessage"></div>
-
-        <form id="loginForm">
-            <div class="form-group">
-                <label for="email" class="form-label">Email Address</label>
-                <input 
-                    type="email" 
-                    id="email" 
-                    class="form-input" 
-                    placeholder="Enter your email"
-                    required
-                >
+    <div class="container">
+        <div class="card">
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('login')">Sign In</button>
+                <button class="tab" onclick="switchTab('signup')">Sign Up</button>
             </div>
 
-            <div class="form-group">
-                <label for="password" class="form-label">Password</label>
-                <div class="password-container">
-                    <input 
-                        type="password" 
-                        id="password" 
-                        class="form-input" 
-                        placeholder="Enter your password"
-                        required
-                    >
-                    <button type="button" class="password-toggle" id="passwordToggle">
-                        Show
+            <div id="message" class="message"></div>
+
+            <!-- Login Form -->
+            <div id="login-form" class="form-container active">
+                <h2>Welcome Back</h2>
+                <p class="subtitle">Sign in to continue</p>
+
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="login-email" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="login-password" placeholder="Enter your password" required>
+                    </div>
+
+                    <div class="forgot-password">
+                        <a href="#" onclick="showMessage('Password reset functionality would go here', 'success'); return false;">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Sign In</button>
+                </form>
+
+                <div class="divider"><span>or continue with</span></div>
+
+                <div class="social-buttons">
+                    <button class="btn-social" onclick="handleSocialLogin('Google')">
+                        <svg width="20" height="20" viewBox="0 0 20 20">
+                            <path fill="#4285F4" d="M19.6 10.23c0-.82-.1-1.42-.25-2.05H10v3.72h5.5c-.15.96-.74 2.31-2.04 3.22v2.45h3.16c1.89-1.73 2.98-4.3 2.98-7.34z"/>
+                            <path fill="#34A853" d="M13.46 15.13c-.83.59-1.96 1-3.46 1-2.64 0-4.88-1.74-5.68-4.15H1.07v2.52C2.72 17.75 6.09 20 10 20c2.7 0 4.96-.89 6.62-2.42l-3.16-2.45z"/>
+                            <path fill="#FBBC05" d="M3.99 10c0-.69.12-1.35.32-1.97V5.51H1.07A9.973 9.973 0 000 10c0 1.61.39 3.14 1.07 4.49l3.24-2.52c-.2-.62-.32-1.28-.32-1.97z"/>
+                            <path fill="#EA4335" d="M10 3.88c1.88 0 3.13.81 3.85 1.48l2.84-2.76C14.96.99 12.7 0 10 0 6.09 0 2.72 2.25 1.07 5.51l3.24 2.52C5.12 5.62 7.36 3.88 10 3.88z"/>
+                        </svg>
+                        Google
+                    </button>
+                    <button class="btn-social" onclick="handleSocialLogin('Facebook')">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="#1877F2">
+                            <path d="M20 10c0-5.523-4.477-10-10-10S0 4.477 0 10c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V10h2.54V7.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V10h2.773l-.443 2.89h-2.33v6.988C16.343 19.128 20 14.991 20 10z"/>
+                        </svg>
+                        Facebook
+                    </button>
+                    <button class="btn-social" onclick="handleSocialLogin('GitHub')">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="#333">
+                            <path d="M10 0C4.477 0 0 4.477 0 10c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0110 4.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C17.137 18.163 20 14.418 20 10c0-5.523-4.477-10-10-10z"/>
+                        </svg>
+                        GitHub
+                    </button>
+                    <button class="btn-social" onclick="handleSocialLogin('Twitter')">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#1DA1F2">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                        Twitter
                     </button>
                 </div>
             </div>
 
-            <button type="submit" class="login-button" id="loginButton">
-                Login to Members Area
-            </button>
-        </form>
+            <!-- Signup Form -->
+            <div id="signup-form" class="form-container">
+                <h2>Create Account</h2>
+                <p class="subtitle">Sign up to get started</p>
 
-        <div class="divider">
-            <span>or continue with</span>
-        </div>
+                <form onsubmit="handleSignup(event)">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="signup-name" placeholder="Enter your full name" required>
+                    </div>
 
-        <div class="social-login">
-            <button class="social-button" id="googleLogin">
-                G Google
-            </button>
-            <button class="social-button" id="githubLogin">
-                # GitHub
-            </button>
-        </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="signup-email" placeholder="Enter your email" required>
+                    </div>
 
-        <div class="links">
-            <a href="#">Forgot Password?</a>
-            <span>•</span>
-            <a href="#">Create Account</a>
-        </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="signup-password" placeholder="Create a password" required minlength="6">
+                    </div>
 
-        <div class="features-preview">
-            <h3>What You'll Get Access To:</h3>
-            <ul class="features-list">
-                <li>3000+ Premium WordPress Themes</li>
-                <li>WooCommerce & Shopify Extensions</li>
-                <li>Landing Pages & Templates</li>
-                <li>Lifetime Updates & Support</li>
-            </ul>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input type="password" id="signup-confirm" placeholder="Confirm your password" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Create Account</button>
+                </form>
+
+                <div class="divider"><span>or sign up with</span></div>
+
+                <div class="social-buttons">
+                    <button class="btn-social" onclick="handleSocialLogin('Google')">
+                        <svg width="20" height="20" viewBox="0 0 20 20">
+                            <path fill="#4285F4" d="M19.6 10.23c0-.82-.1-1.42-.25-2.05H10v3.72h5.5c-.15.96-.74 2.31-2.04 3.22v2.45h3.16c1.89-1.73 2.98-4.3 2.98-7.34z"/>
+                            <path fill="#34A853" d="M13.46 15.13c-.83.59-1.96 1-3.46 1-2.64 0-4.88-1.74-5.68-4.15H1.07v2.52C2.72 17.75 6.09 20 10 20c2.7 0 4.96-.89 6.62-2.42l-3.16-2.45z"/>
+                            <path fill="#FBBC05" d="M3.99 10c0-.69.12-1.35.32-1.97V5.51H1.07A9.973 9.973 0 000 10c0 1.61.39 3.14 1.07 4.49l3.24-2.52c-.2-.62-.32-1.28-.32-1.97z"/>
+                            <path fill="#EA4335" d="M10 3.88c1.88 0 3.13.81 3.85 1.48l2.84-2.76C14.96.99 12.7 0 10 0 6.09 0 2.72 2.25 1.07 5.51l3.24 2.52C5.12 5.62 7.36 3.88 10 3.88z"/>
+                        </svg>
+                        Google
+                    </button>
+                    <button class="btn-social" onclick="handleSocialLogin('Facebook')">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="#1877F2">
+                            <path d="M20 10c0-5.523-4.477-10-10-10S0 4.477 0 10c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V10h2.54V7.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V10h2.773l-.443 2.89h-2.33v6.988C16.343 19.128 20 14.991 20 10z"/>
+                        </svg>
+                        Facebook
+                    </button>
+                    <button class="btn-social" onclick="handleSocialLogin('GitHub')">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="#333">
+                            <path d="M10 0C4.477 0 0 4.477 0 10c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0110 4.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C17.137 18.163 20 14.418 20 10c0-5.523-4.477-10-10-10z"/>
+                        </svg>
+                        GitHub
+                    </button>
+                    <button class="btn-social" onclick="handleSocialLogin('Twitter')">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#1DA1F2">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                        Twitter
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        // Password toggle functionality
-        const passwordInput = document.getElementById('password');
-        const passwordToggle = document.getElementById('passwordToggle');
-
-        passwordToggle.addEventListener('click', () => {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            passwordToggle.textContent = type === 'password' ? 'Show' : 'Hide';
-        });
-
-        // Form submission handling
-        const loginForm = document.getElementById('loginForm');
-        const loginButton = document.getElementById('loginButton');
-        const errorMessage = document.getElementById('errorMessage');
-        const successMessage = document.getElementById('successMessage');
-
-        function showError(message) {
-            errorMessage.textContent = message;
-            errorMessage.style.display = 'block';
-            successMessage.style.display = 'none';
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.form-container').forEach(f => f.classList.remove('active'));
+            
+            if (tab === 'login') {
+                document.querySelectorAll('.tab')[0].classList.add('active');
+                document.getElementById('login-form').classList.add('active');
+            } else {
+                document.querySelectorAll('.tab')[1].classList.add('active');
+                document.getElementById('signup-form').classList.add('active');
+            }
+            
+            hideMessage();
         }
 
-        function showSuccess(message) {
-            successMessage.textContent = message;
-            successMessage.style.display = 'block';
-            errorMessage.style.display = 'none';
+        function showMessage(text, type) {
+            const messageEl = document.getElementById('message');
+            messageEl.textContent = text;
+            messageEl.className = 'message ' + type;
+            messageEl.style.display = 'block';
         }
 
-        function hideMessages() {
-            errorMessage.style.display = 'none';
-            successMessage.style.display = 'none';
+        function hideMessage() {
+            document.getElementById('message').style.display = 'none';
         }
 
-        loginForm.addEventListener('submit', async (e) => {
+        function handleLogin(e) {
             e.preventDefault();
-            hideMessages();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
 
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            // Basic validation
-            if (!email || !password) {
-                showError('Please fill in all fields');
-                return;
-            }
-
-            if (password.length < 6) {
-                showError('Password must be at least 6 characters long');
-                return;
-            }
-
-            // Show loading state
-            loginButton.disabled = true;
-            loginButton.innerHTML = '<span class="loading"></span> Logging in...';
-
-            // Simulate login process (replace with actual authentication)
-            try {
-                await new Promise(resolve => setTimeout(resolve, 2000));
-
-                // Demo login - replace with actual authentication logic
-                if (email === 'demo@gplmama.com' && password === 'demo123') {
-                    showSuccess('Login successful! Redirecting to members area...');
-                    setTimeout(() => {
-                        window.location.href = 'members-area.html';
-                    }, 1500);
-                } else {
-                    showError('Invalid email or password. Try demo@gplmama.com / demo123');
-                }
-            } catch (error) {
-                showError('Login failed. Please try again.');
-            } finally {
-                loginButton.disabled = false;
-                loginButton.innerHTML = 'Login to Members Area';
-            }
-        });
-
-        // Social login handlers
-        document.getElementById('googleLogin').addEventListener('click', () => {
-            showError('Social login coming soon! Use demo@gplmama.com / demo123 for now.');
-        });
-
-        document.getElementById('githubLogin').addEventListener('click', () => {
-            showError('Social login coming soon! Use demo@gplmama.com / demo123 for now.');
-        });
-
-        // Input field animations
-        const inputs = document.querySelectorAll('.form-input');
-        inputs.forEach(input => {
-            input.addEventListener('focus', function() {
-                this.parentElement.style.transform = 'scale(1.02)';
-                this.parentElement.style.transition = 'transform 0.2s ease';
-            });
-
-            input.addEventListener('blur', function() {
-                this.parentElement.style.transform = 'scale(1)';
-            });
-        });
-
-        // Auto-focus email field on page load
-        window.addEventListener('load', () => {
-            document.getElementById('email').focus();
-        });
-
-        // Demo credentials hint
-        setTimeout(() => {
-            if (!successMessage.style.display || successMessage.style.display === 'none') {
-                const hint = document.createElement('div');
-                hint.style.cssText = `
-                    position: fixed;
-                    bottom: 20px;
-                    right: 20px;
-                    background: hsl(145, 100%, 50%, 0.1);
-                    border: 1px solid hsl(145, 100%, 50%);
-                    color: hsl(145, 100%, 70%);
-                    padding: 0.75rem;
-                    border-radius: 8px;
-                    font-size: 0.85rem;
-                    max-width: 250px;
-                    z-index: 1000;
-                `;
-                hint.innerHTML = '<strong>Demo Login:</strong><br>Email: demo@gplmama.com<br>Password: demo123';
-                document.body.appendChild(hint);
-
+            if (email && password) {
+                showMessage('Login successful! Redirecting...', 'success');
                 setTimeout(() => {
-                    hint.remove();
-                }, 10000);
+                    window.location.href = '/';
+                }, 1500);
             }
-        }, 3000);
+        }
+
+        function handleSignup(e) {
+            e.preventDefault();
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const confirm = document.getElementById('signup-confirm').value;
+
+            if (password !== confirm) {
+                showMessage('Passwords do not match', 'error');
+                return;
+            }
+
+            if (name && email && password) {
+                showMessage('Account created successfully! Redirecting...', 'success');
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 1500);
+            }
+        }
+
+        function handleSocialLogin(provider) {
+            showMessage(`Signing in with ${provider}...`, 'success');
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 1500);
+        }
     </script>
 </body>
 </html>
